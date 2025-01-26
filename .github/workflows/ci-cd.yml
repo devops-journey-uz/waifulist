@@ -8,7 +8,7 @@ on:
  
 env:
   REPO_NAME: ${{ github.repository }}
-  CONTAINER_NAME: devops-journey
+  CONTAINER_NAME: waifulist
   REGISTRY: ghcr.io
   SSH_HOST: ${{ secrets.SERVER_IP }}
   SSH_USER: ${{ secrets.SERVER_USERNAME }}
