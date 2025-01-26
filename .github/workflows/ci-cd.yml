@@ -8,7 +8,13 @@ on:
  
 env:
   REPO_NAME: ${{ github.repository }}
+  CONTAINER_NAME: devops-journey
   REGISTRY: ghcr.io
+  SSH_HOST: ${{ secrets.SERVER_IP }}
+  SSH_USER: ${{ secrets.SERVER_USERNAME }}
+  SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  PORT: 8080:8080
+  SPRING_PROFILES_ACTIVE: dev
  
 jobs:
   build_and_push:
@@ -38,3 +44,28 @@ jobs:
           tags: "${{ env.REGISTRY }}/${{ env.REPO_NAME }}:${{ github.sha }}"
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.REPO_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.REPO_NAME }}:buildcache,mode=max
+
+  deploy:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Executing remote SSH commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: "${{ env.SSH_HOST }}"
+          username: "${{ env.SSH_USER }}"
+          key: "${{ env.SSH_KEY }}"
+          script: |
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login -u ${{ github.actor }} --password-stdin ${{ env.REGISTRY }}
+            docker pull "${{ env.REGISTRY }}/${{ env.REPO_NAME }}:${{ github.sha }}"
+            docker stop "${{ env.CONTAINER_NAME }}" || true
+            docker rm "${{ env.CONTAINER_NAME }}" || true
+            docker run -d --name ${{ env.CONTAINER_NAME }} -p ${{ env.PORT }} \
+            -e SPRING_PROFILES_ACTIVE=${{ env.SPRING_PROFILES_ACTIVE }} \
+            -e DEV_DATABASE_URL=${{ secrets.DEV_DATABASE_URL }} \
+            -e DEV_DATABASE_USERNAME=${{ secrets.DEV_DATABASE_USERNAME }} \
+            -e DEV_DATABASE_PASSWORD=${{ secrets.DEV_DATABASE_PASSWORD }} \
+            ${{ env.REGISTRY }}/${{ env.REPO_NAME }}:${{ github.sha }}"
