@@ -68,4 +68,4 @@ jobs:
             -e DEV_DATABASE_URL=${{ secrets.DEV_DATABASE_URL }} \
             -e DEV_DATABASE_USERNAME=${{ secrets.DEV_DATABASE_USERNAME }} \
             -e DEV_DATABASE_PASSWORD=${{ secrets.DEV_DATABASE_PASSWORD }} \
-            ${{ env.REGISTRY }}/${{ env.REPO_NAME }}:${{ github.sha }}"
+            ${{ env.REGISTRY }}/${{ env.REPO_NAME }}:${{ github.sha }}
