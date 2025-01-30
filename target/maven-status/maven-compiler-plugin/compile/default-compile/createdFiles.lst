@@ -1,0 +1,8 @@
+zawkin/me/asuna/entity/WaifuEntity$WaifuEntityBuilder.class
+zawkin/me/asuna/service/WaifuService.class
+zawkin/me/asuna/WaifulistApplication.class
+zawkin/me/asuna/config/SwaggerConfig.class
+zawkin/me/asuna/repository/WaifuRepository.class
+zawkin/me/asuna/controller/WaifuController.class
+zawkin/me/asuna/entity/WaifuEntity.class
+zawkin/me/asuna/dto/WaifuDTO.class

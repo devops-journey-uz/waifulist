@@ -1,0 +1,7 @@
+/home/ismoilovdev/Desktop/Project/waifulist/src/main/java/zawkin/me/asuna/WaifulistApplication.java
+/home/ismoilovdev/Desktop/Project/waifulist/src/main/java/zawkin/me/asuna/config/SwaggerConfig.java
+/home/ismoilovdev/Desktop/Project/waifulist/src/main/java/zawkin/me/asuna/controller/WaifuController.java
+/home/ismoilovdev/Desktop/Project/waifulist/src/main/java/zawkin/me/asuna/dto/WaifuDTO.java
+/home/ismoilovdev/Desktop/Project/waifulist/src/main/java/zawkin/me/asuna/entity/WaifuEntity.java
+/home/ismoilovdev/Desktop/Project/waifulist/src/main/java/zawkin/me/asuna/repository/WaifuRepository.java
+/home/ismoilovdev/Desktop/Project/waifulist/src/main/java/zawkin/me/asuna/service/WaifuService.java
