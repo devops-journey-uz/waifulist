@@ -68,7 +68,7 @@ jobs:
             docker pull "${{ env.REGISTRY }}/${{ env.REPO_NAME }}:${{ github.sha }}"
             docker stop "${{ env.CONTAINER_NAME }}" || true
             docker rm "${{ env.CONTAINER_NAME }}" || true
-            docker run -d --name ${{ env.CONTAINER_NAME }} -p ${{ env.PORT }} \
+            docker run -d --name ${{ env.CONTAINER_NAME }} --restart=always -p ${{ env.PORT }} \
             -e SPRING_PROFILES_ACTIVE=${{ env.SPRING_PROFILES_ACTIVE }} \
             -e DEV_DATABASE_URL=${{ secrets.DEV_DATABASE_URL }} \
             -e DEV_DATABASE_USERNAME=${{ secrets.DEV_DATABASE_USERNAME }} \
